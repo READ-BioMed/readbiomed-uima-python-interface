@@ -7,7 +7,10 @@ Given an AnalysisEngine, this package can help set the analysis engine as a serv
 
 From Java, you can start the server from the AnnotationApplication starServer function:
 
-`AnnotationApplication.startServer(AnalysisEngine ae);`
+```
+(new AnnotationApplication(ConceptMapperFactory.create(dictionaryFileName), 1))
+				.startServer(Integer.parseInt(portNumber));
+```
 
 From Python, you can call the server, annotate text using the annotation engine and access the list of annotation.
 

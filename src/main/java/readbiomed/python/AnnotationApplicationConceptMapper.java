@@ -5,8 +5,6 @@ import java.net.URISyntaxException;
 import java.util.concurrent.Callable;
 
 import org.apache.uima.UIMAException;
-import org.apache.uima.analysis_engine.AnalysisEngine;
-import org.apache.uima.fit.factory.AnalysisEngineFactory;
 import org.xml.sax.SAXException;
 
 import picocli.CommandLine;
@@ -17,21 +15,21 @@ import readbiomed.nlp.dictionary.ConceptMapperFactory;
  * 
  * @author Antonio Jimeno Yepes (antonio.jimeno@gmail.com)
  * 
- * Interface using ConceptMapper as example
+ *         Interface using ConceptMapper as example
  */
 public class AnnotationApplicationConceptMapper implements Callable<Integer> {
 
 	@Parameters(index = "0", description = "Dictionary file name.")
 	private String dictionaryFileName;
-	
+
 	// Default value uses the default port number
 	@Parameters(index = "1", description = "Port number [optional].", defaultValue = "-1")
 	private String portNumber;
-	
+
 	@Override
 	public Integer call() throws Exception {
-		AnalysisEngine ae = AnalysisEngineFactory.createEngine(ConceptMapperFactory.create(dictionaryFileName));
-		AnnotationApplication.startServer(ae, Integer.parseInt(portNumber));
+		(new AnnotationApplication(ConceptMapperFactory.create(dictionaryFileName), 1))
+				.startServer(Integer.parseInt(portNumber));
 		return 0;
 	}
 
